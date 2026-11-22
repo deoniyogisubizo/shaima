@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# shaima
 
-## Getting Started
+A minimalist, editorial single-page birthday tribute for **Mungwariho Shaima Heniriete**, built with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## Photo
+
+Drop her portrait into `public/photos/shaima.jpg` — the exact filename must be `shaima.jpg` inside `public/photos/`.
+
+A clean typographic placeholder renders automatically if the image is missing or fails to load, so the page never breaks.
+
+## Palette
+
+- Alabaster background: `#FAF9F6`
+- Charcoal ink: `#18181B`
+- Terracotta accent: `#D97757`
+- Botanical accent: `#4A6B5D`
+
+## Typography
+
+- **Playfair Display** (via `next/font/google`) — name and poetic tribute lines.
+- **Space Mono** (via `next/font/google`) — intro copy and the tactile button.
+
+## Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # local dev
+npm run build    # production build
+npm run start    # production server
+npm run lint     # eslint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Flow
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Tease screen — "hhhhhh" + the tease line + a tactile "Click me" button.
+2. Click → intro fades out, custom SVG petals and flower clusters bloom and drift.
+3. Exactly 3 seconds later → the birthday tribute (name, portrait, 10 staggered poetic lines) is revealed while petals keep drifting in the background.
