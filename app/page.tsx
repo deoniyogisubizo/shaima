@@ -373,9 +373,8 @@ function Portrait() {
   );
 }
 
-function Tribute({ reduced }: { reduced: boolean }) {
-  return (
-    <section className="relative z-10 w-full min-h-screen px-6 py-12 sm:px-10 sm:py-32">
+function Tribute({ reduced, onNext }: { reduced: boolean; onNext: () => void }) {
+  return (    <section className="relative z-10 w-full min-h-screen px-6 py-12 sm:px-10 sm:py-32">
       <motion.h1
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -419,6 +418,23 @@ function Tribute({ reduced }: { reduced: boolean }) {
         </motion.div>
 
         <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.55 + TRIBUTE_LINES.length * 0.15 + 0.3, ease: "easeOut" }}
+          className="lg:col-span-7 lg:col-start-1 lg:col-end-8 flex items-end"
+        >
+          <button
+            type="button"
+            onClick={onNext}
+            aria-label="See what comes next"
+            className="mb-6 inline-flex items-center gap-2 rounded-none border border-solid border-ink bg-transparent px-6 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-ink transition duration-150 ease-out hover:-translate-y-1 hover:scale-[1.02] active:scale-95 active:translate-y-0 active:bg-ink/[0.05] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink"
+          >
+            <span>It’s not ended</span>
+            <span>→ click to see what next</span>
+          </button>
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{
             opacity: 1,
@@ -445,8 +461,50 @@ function Tribute({ reduced }: { reduced: boolean }) {
   );
 }
 
+function LaughterScreen({ onNext }: { onNext: () => void }) {
+  return (
+    <div className="flex min-h-screen items-center justify-center px-6 sm:px-10 text-ink">
+      <div className="relative w-full max-w-[60ch] text-center sm:text-left">
+        <motion.div
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "backOut" }}
+          className="mb-12 text-8xl sm:text-[8rem] leading-none"
+        >
+          😂
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
+          className="mb-6 font-[var(--font-playfair)] text-4xl leading-[1.05] tracking-tight text-ink sm:text-6xl"
+        >
+          Happy 35 Years
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 2.1, ease: "easeOut" }}
+          className="font-[var(--font-playfair)] text-2xl leading-[1.05] tracking-tighter text-terracotta sm:text-4xl"
+        >
+          work urashaje kanyagwe
+        </motion.div>
+        <button
+          type="button"
+          onClick={onNext}
+          className="mt-16 inline-flex items-center gap-2 rounded-none border border-solid border-ink bg-transparent px-6 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-ink transition duration-150 ease-out hover:-translate-y-1 hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ink"
+        >
+          ← back
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function BirthdayPage() {
-  const [stage, setStage] = useState<"intro" | "flowers" | "revealed">("intro");
+  const [stage, setStage] = useState<
+    "intro" | "flowers" | "revealed" | "laughing"
+  >("intro");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduced = !!useReducedMotion();
   const viewHeight = useViewportHeight();
@@ -473,7 +531,10 @@ export default function BirthdayPage() {
       {stage !== "intro" && (
         <Petals viewHeight={viewHeight} reduced={reduced} />
       )}
-      {stage === "revealed" && <Tribute reduced={reduced} />}
+      {stage === "revealed" && <Tribute reduced={reduced} onNext={() => setStage("laughing")} />}
+      {stage === "laughing" && (
+        <LaughterScreen key="laughing" onNext={() => setStage("revealed")} />
+      )}
     </div>
   );
 }
